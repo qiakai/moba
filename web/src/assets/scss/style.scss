@@ -39,6 +39,13 @@ a {
         font-size: $size * $base-font-size;
     }
 }
+// text overflow
+.text-ellipsis {
+    display: inline-block; // 行内块元素，不独占一行的块级元素
+    overflow: hidden; // 超出的部分隐藏
+    text-overflow: ellipsis; // 当对象内文本溢出时显示省略标记（...）
+    white-space: nowrap; // 强制显示一行
+}
 // width, height
 .w-100 {
     width: 100%;

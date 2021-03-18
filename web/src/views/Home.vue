@@ -44,11 +44,11 @@
 
     <m-list-card icon="menu1" title="新闻资讯" :categories="newsCats">
       <template #items="{category}">
-        <div class="py-2" v-for="(items, i) in category.newsList" :key="i">
-          <span>[{{items.categoryName}}]</span>
-          <span>|</span>
-          <span>{{items.title}}</span>
-          <span>{{items.date}}</span>
+        <div class="py-2 fs-lg d-flex" v-for="(news, i) in category.newsList" :key="i">
+          <span class="text-info">[{{news.categoryName}}]</span>
+          <span class="px-2">|</span>
+          <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
+          <span class="text-grey-1 fs-sm">{{news.createdAt | date}}</span>
         </div>
       </template>
     </m-list-card>
@@ -59,7 +59,13 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
 export default {
+  filters: {
+    date(val){
+      return dayjs(val).format('MM/DD')
+    }
+  },
   data() {
     return {
       swiperOptions: {
@@ -72,50 +78,18 @@ export default {
           disableOnInteraction: false,
         },
       },
-      newsCats: [
-        {
-          name: "热门",
-          newsList: new Array(5).fill(1).map(() => ({
-            categoryName: "公告",
-            title: "3月17日净化游戏环境声明及处罚公告",
-            date: "03/17",
-          })),
-        },
-        {
-          name: "新闻",
-          newsList: new Array(5).fill(1).map(() => ({
-            categoryName: "新闻",
-            title: "3月17日净化游戏环境声明及处罚公告",
-            date: "03/17",
-          })),
-        },
-        {
-          name: "新闻",
-          newsList: new Array(5).fill(1).map(() => ({
-            categoryName: "新闻",
-            title: "3月17日净化游戏环境声明及处罚公告",
-            date: "03/17",
-          })),
-        },
-        {
-          name: "新闻",
-          newsList: new Array(5).fill(1).map(() => ({
-            categoryName: "新闻",
-            title: "3月17日净化游戏环境声明及处罚公告",
-            date: "03/17",
-          })),
-        },
-        {
-          name: "新闻",
-          newsList: new Array(5).fill(1).map(() => ({
-            categoryName: "新闻",
-            title: "3月17日净化游戏环境声明及处罚公告",
-            date: "03/17",
-          })),
-        },
-      ],
+      newsCats: []
     };
   },
+  methods: {
+    async fetchNewsCats(){
+      const res = await this.$http.get('news/list')
+      this.newsCats = res.data
+    }
+  },
+  created(){
+    this.fetchNewsCats()
+  }
 };
 </script>
 
