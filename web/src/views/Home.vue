@@ -42,14 +42,16 @@
     </div>
     <!-- end of nav icons -->
 
-    <m-card-list icon="menu1" title="新闻资讯" :categories="newsCates">
-      <div class="py-2" v-for="n in 5" :key="n">
-        <span>[新闻]</span>
-        <span>|</span>
-        <span>第三届王者荣耀全国大赛——安徽省再次启航！</span>
-        <span>03/12</span>
-      </div>
-    </m-card-list>
+    <m-list-card icon="menu1" title="新闻资讯" :categories="newsCats">
+      <template #items="{category}">
+        <div class="py-2" v-for="(items, i) in category.newsList" :key="i">
+          <span>[{{items.categoryName}}]</span>
+          <span>|</span>
+          <span>{{items.title}}</span>
+          <span>{{items.date}}</span>
+        </div>
+      </template>
+    </m-list-card>
     <m-card icon="card-hero" title="英雄列表"> </m-card>
     <m-card icon="menu1" title="精彩视频"> </m-card>
     <m-card icon="news" title="图文攻略"> </m-card>
@@ -70,16 +72,48 @@ export default {
           disableOnInteraction: false,
         },
       },
-      newsCates: [
+      newsCats: [
         {
           name: "热门",
           newsList: new Array(5).fill(1).map(() => ({
-              categoryName:'公告',
-              title:'3月17日净化游戏环境声明及处罚公告',
-              date:'03/17'
-            }))
+            categoryName: "公告",
+            title: "3月17日净化游戏环境声明及处罚公告",
+            date: "03/17",
+          })),
         },
-      ]
+        {
+          name: "新闻",
+          newsList: new Array(5).fill(1).map(() => ({
+            categoryName: "新闻",
+            title: "3月17日净化游戏环境声明及处罚公告",
+            date: "03/17",
+          })),
+        },
+        {
+          name: "新闻",
+          newsList: new Array(5).fill(1).map(() => ({
+            categoryName: "新闻",
+            title: "3月17日净化游戏环境声明及处罚公告",
+            date: "03/17",
+          })),
+        },
+        {
+          name: "新闻",
+          newsList: new Array(5).fill(1).map(() => ({
+            categoryName: "新闻",
+            title: "3月17日净化游戏环境声明及处罚公告",
+            date: "03/17",
+          })),
+        },
+        {
+          name: "新闻",
+          newsList: new Array(5).fill(1).map(() => ({
+            categoryName: "新闻",
+            title: "3月17日净化游戏环境声明及处罚公告",
+            date: "03/17",
+          })),
+        },
+      ],
     };
   },
 };
