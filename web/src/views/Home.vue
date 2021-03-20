@@ -63,12 +63,21 @@
     <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
       <template #items="{ category }">
         <div class="d-flex flex-wrap" style="margin: 0 -0.4rem">
-          <div class="p-2 text-center"
-          style="width: 20%;"
-           v-for="(hero, i) in category.heroList" :key="i">
-            <img :src="hero.avatar" class="w-100" />
+          <router-link
+            tag="div"
+            :to="`/heroes/${hero._id}`"
+            class="p-2 text-center"
+            style="width: 20%"
+            v-for="(hero, i) in category.heroList"
+            :key="i"
+          >
+            <img
+              :src="hero.avatar"
+              class="w-100"
+              style="border: 1px solid #258df2; border-radius: 10px 0 10px 0"
+            />
             <div>{{ hero.name }}</div>
-          </div>
+          </router-link>
         </div>
       </template>
     </m-list-card>
@@ -141,9 +150,5 @@ export default {
       border-left: none;
     }
   }
-}
-img{
-    border: 1px solid map-get($map: $colors, $key: "blue");
-    border-radius: 10px 0 10px 0;
 }
 </style>
