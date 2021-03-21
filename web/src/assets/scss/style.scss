@@ -1,178 +1,182 @@
-@import "./variables";
+@import './variables';
+
 // reset
 * {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    outline: none;
+  box-sizing: border-box;
+  outline: none;
 }
 html {
-    font-size: 13px;
+  font-size: 13px;
 }
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.2rem;
-    background: #f1f1f1;
-    -webkit-font-smoothing: antialiased;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2em;
+  background: #f1f1f1;
+  -webkit-font-smoothing: antialiased;
 }
 a {
-    color: #999;
+  color: #999;
 }
 p {
-    line-height: 1.5rem;
+  line-height: 1.5em;
 }
 
 @each $colorKey, $color in $colors {
-    .text-#{$colorKey} {
-        color: $color;
-    }
-    .bg-#{$colorKey} {
-        background-color: $color;
-    }
+  .text-#{$colorKey} {
+    color: $color;
+  }
+  .bg-#{$colorKey} {
+    background-color: $color;
+  }
 }
-// text aligin
+// text align
 @each $var in (left, center, right) {
-    .text-#{$var} {
-        text-align: $var !important;
-    }
+  .text-#{$var} {
+    text-align: $var !important;
+  }
 }
 
 @each $sizeKey, $size in $font-sizes {
-    .fs-#{$sizeKey} {
-        font-size: $size * $base-font-size;
-    }
+  .fs-#{$sizeKey} {
+    font-size: $size * $base-font-size;
+  }
 }
 // text overflow
 .text-ellipsis {
-    display: inline-block; // 行内块元素，不独占一行的块级元素
-    overflow: hidden; // 超出的部分隐藏
-    text-overflow: ellipsis; // 当对象内文本溢出时显示省略标记（...）
-    white-space: nowrap; // 强制显示一行
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
 // width, height
 .w-100 {
-    width: 100%;
+  width: 100%;
 }
 .h-100 {
-    height: 100%;
+  height: 100%;
 }
 // flex
 .d-flex {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+  display: flex;
 }
 .flex-column {
-    flex-direction: column;
+  flex-direction: column;
 }
 .flex-wrap {
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 @each $key, $value in $flex-jc {
-    .jc-#{$key} {
-        -webkit-box-pack: $value;
-        -ms-flex-pack: $value;
-        justify-content: $value;
-    }
+  .jc-#{$key} {
+    justify-content: $value;
+  }
 }
 
 @each $key, $value in $flex-ai {
-    .jc-#{$key} {
-        -webkit-box-align: $value;
-        -ms-flex-align: $value;
-        align-items: $value;
-    }
+  .ai-#{$key} {
+    align-items: $value;
+  }
 }
 .flex-1 {
-    flex: 1;
+  flex: 1;
 }
 .flex-grow-1 {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
+// m-0, mx-0
 @each $typeKey, $type in $spacing-types {
-    // .m-1
+  // .m-1
+  @each $sizeKey, $size in $spacing-sizes {
+    .#{$typeKey}-#{$sizeKey} {
+      #{$type}: $size * $spacing-base-size;
+    }
+  }
+  // .mx-1 , .my-1
+  @each $sizeKey, $size in $spacing-sizes {
+    .#{$typeKey}x-#{$sizeKey} {
+      #{$type}-left: $size * $spacing-base-size;
+      #{$type}-right: $size * $spacing-base-size;
+    }
+    .#{$typeKey}y-#{$sizeKey} {
+      #{$type}-top: $size * $spacing-base-size;
+      #{$type}-bottom: $size * $spacing-base-size;
+    }
+  }
+  // .mt-1
+  @each $directionKey, $direction in $spacing-directions {
     @each $sizeKey, $size in $spacing-sizes {
-        .#{$typeKey}-#{$sizeKey} {
-            #{$type}: $size * $spacing-base-size;
-        }
+      .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+        #{$type}-#{$direction}: $size * $spacing-base-size;
+      }
     }
-    // .mx-1, .my-1
-    @each $sizeKey, $size in $spacing-sizes {
-        .#{$typeKey}x-#{$sizeKey} {
-            #{$type}-left: $size * $spacing-base-size;
-            #{$type}-right: $size * $spacing-base-size;
-        }
-    }
-    @each $sizeKey, $size in $spacing-sizes {
-        .#{$typeKey}y-#{$sizeKey} {
-            #{$type}-top: $size * $spacing-base-size;
-            #{$type}-bottom: $size * $spacing-base-size;
-        }
-    }
-    // .mt-1
-    @each $directionKey, $direction in $spacing-directions {
-        @each $sizeKey, $size in $spacing-sizes {
-            // mt-1{margin-top: 0.25rem;}
-            .#{$typeKey}#{$directionKey}-#{$sizeKey} {
-                #{$type}-#{$direction}: $size * $spacing-base-size;
-            }
-        }
-    }
+  }
 }
 // button
 .btn {
-    border: none;
-    border-radius: 0.1538rem;
-    font-size: map-get($map: $font-sizes, $key: "sm") * $base-font-size;
-    padding: 0.2rem, 0.6rem;
+  border:none;
+  border-radius: 0.1538rem;
+  font-size: map-get($font-sizes, 'sm') * $base-font-size;
+  padding: 0.2rem 0.6rem;
+  &.btn-lg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i {
+      color: map-get($colors, 'primary');
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+    background: map-get($colors, 'white-1');
+    border: 1px solid map-get($colors, 'white-2');
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
 }
 // nav
 .nav {
-    display: flex;
+  display: flex;
+  .nav-item {
+    border-bottom: 3px solid transparent;
+    padding-bottom: 0.2rem;
+    &.active {
+      color: map-get($colors, 'primary');
+      border-bottom-color: map-get($colors, 'primary');
+    }
+  }
+  &.nav-inverse {
     .nav-item {
-        border-bottom: 3px solid transparent;
-        padding-bottom: 0.2rem;
-        &.active {
-            color: map-get($map: $colors, $key: "primary");
-            border-bottom-color: map-get($map: $colors, $key: "primary");
-        }
+      color: map-get($colors, 'white');
+      &.active {
+        border-bottom-color: map-get($colors, 'white');
+      }
     }
-    &.nav-inverse {
-        .nav-item {
-            color: map-get($map: $colors, $key: "white");
-            &.active {
-                border-bottom-color: map-get($map: $colors, $key: "white");
-            }
-        }
-    }
+  }
+  
 }
 
 // sprite
 .sprite {
-    background: url(../images/index.png) no-repeat 0 0;
-    background-size: 28.8462rem;
-    display: inline-block;
-    &.sprite-news {
-        width: 1.7692rem;
-        height: 1.5385rem;
-        background-position: -224px -67px;
-    }
-    &.sprite-storyStation {
-        width: 1.7692rem;
-        height: 1.5385rem;
-        background-position: -318px -68px;
-    }
-    &.sprite-arrow {
-        width: 0.7692rem;
-        height: 0.7692rem;
-        background-position: -141px -232px;
-    }
+  background: url(../images/index.png) no-repeat 0 0;
+  background-size: 28.8462rem;
+  display: inline-block;
+  &.sprite-news {
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 63.546% 15.517%;
+  }
+  &.sprite-arrow{
+    width: 0.7692rem;
+    height: 0.7692rem;
+    background-position: 38.577% 52.076%;
+  }
 }
 // borders
 @each $dir in (top, right, bottom, left) {
-    .border-#{$dir} {
-        border-#{$dir}: 1px solid $border-color;
-    }
+  .border-#{$dir} {
+    border-#{$dir}: 1px solid $border-color;
+  }
 }
